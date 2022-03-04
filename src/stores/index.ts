@@ -1,7 +1,6 @@
 import {
   createStore,
   createTypedHooks,
-  Helpers,
   unstable_effectOn,
   Unstable_EffectOn,
   persist
@@ -14,12 +13,15 @@ import { EventsModel } from './events/events.model'
 import { initialEventsData } from './events/events.store'
 import { PerksModel } from './perks/perks.model'
 import { initialPerksData } from './perks/perks.store'
+import { UpgradesModel } from './upgrades/upgrades.model'
+import { initialUpgradesData } from './upgrades/upgrades.store'
 
 export interface StoreModel {
   base: BaseModel
   events: EventsModel
   perks: PerksModel
   badges: BadgesModel
+  upgrades: UpgradesModel
   onClicks: Unstable_EffectOn<StoreModel, StoreModel>
 }
 
@@ -28,6 +30,7 @@ const initialData: StoreModel = {
   events: initialEventsData,
   perks: initialPerksData,
   badges: initialBadgesData,
+  upgrades: initialUpgradesData,
   onClicks: unstable_effectOn(
     [(state,storeState) => {
       console.log(storeState)

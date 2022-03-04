@@ -24,4 +24,6 @@ export interface BaseModel {
   setClickStrengthBase: Action<BaseModel, number>;
   interval: Thunk<BaseModel, undefined, any, StoreModel>;
 
+  increaseClickStrengthBase: Action<BaseModel, number>;
+
 }

@@ -1,5 +1,5 @@
-- upgrades - explicit set of upgrades
-- upgrade clickstrength
+- [x] upgrades - explicit set of upgrades
+- [x] upgrade clickstrength
 
 - prestige systems 
 - tokens
