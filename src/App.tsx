@@ -1,45 +1,54 @@
 import React, { useEffect } from 'react'
 import { ToastContainer } from 'react-toastify'
-import "react-toastify/dist/ReactToastify.css"
+import 'react-toastify/dist/ReactToastify.css'
 import './App.css'
-import { useStoreState,useStoreActions } from './stores'
+import { useStoreState, useStoreActions } from './stores'
 import { BaseStore } from './stores/base/base.store'
 import { EventsStore } from './stores/events'
 import { PerksStore } from './stores/perks/perks.store'
+import { upgrades } from './stores/upgrades/upgrades'
 
 function App() {
-  const baseState = useStoreState((state)=>state.base);
-  const eventsState = useStoreState((state)=>state.events);
-  const perksState = useStoreState((state)=>state.perks);
-  const baseActions = useStoreActions((state)=> state.base)
-  const eventsActions = useStoreActions((state)=> state.events);
-  const perksActions = useStoreActions((state)=>state.perks);
+  const baseState = useStoreState((state) => state.base)
+  const eventsState = useStoreState((state) => state.events)
+  const perksState = useStoreState((state) => state.perks)
+  const upgradesState = useStoreState((state) => state.upgrades)
+  const baseActions = useStoreActions((state) => state.base)
+  const eventsActions = useStoreActions((state) => state.events)
+  const perksActions = useStoreActions((state) => state.perks)
+  const upgradesActions = useStoreActions((state) => state.upgrades)
 
-  const clicks = baseState.clicks;
-  const clickStrength = baseState.clickStrength;
-  const events = eventsState.events;
-  const event = eventsState.event;
-  const cps = perksState.cps;
-  const clickHistory = baseState.history;
-  const categories = Array.from(perksState.perks.keys());
+  const clicks = baseState.clicks
+  const clickStrength = baseState.clickStrength
+  const events = eventsState.events
+  const event = eventsState.event
+  const cps = perksState.cps
+  const clickHistory = baseState.history
+  const categories = Array.from(perksState.perks.keys())
 
-  const dispatchCpsHook = baseActions.interval;
-  const buyPerk = perksActions.buy;
-  const dispatchClick = baseActions.click;
-  const dispatchRandomEvent = eventsActions.dispatchRandomEvent;
+  const dispatchCpsHook = baseActions.interval
+  const buyPerk = perksActions.buy
+  const dispatchClick = baseActions.click
+  const dispatchRandomEvent = eventsActions.dispatchRandomEvent
 
-  const perks = Array.from(perksState.perks.values()).flatMap((e)=>e).filter((e)=>e.unlocked);
-  useEffect(()=>{
-    dispatchCpsHook();
-    console.info("dispatched autoclickers")
-  },[])
+  const perks = Array.from(perksState.perks.values())
+    .flatMap((e) => e)
+    .filter((e) => e.unlocked)
+  useEffect(() => {
+    dispatchCpsHook()
+    console.info('dispatched autoclickers')
+  }, [])
   return (
     <div className='App'>
-      <ToastContainer position='top-right' pauseOnHover={true} draggable={true}/>
-      Clicks: {clicks.toFixed(2)} <br /> Cps: {cps.toFixed(2)}
+      <ToastContainer
+        position='top-right'
+        pauseOnHover={true}
+        draggable={true}
+      />
+      Clicks: {clicks.toFixed(5)} <br /> Cps: {cps.toFixed(2)}
       <br />
       <span> click strength: {clickStrength.toFixed(2)}</span>
-      <br/>
+      <br />
       <span>Total Clicks: {clickHistory.length}</span>
       <div>
         <h3> Current Event: {event?.label || 'none'}</h3>
@@ -60,21 +69,45 @@ function App() {
       >
         Dispatch Event
       </button>
-        <button onClick={()=>{
-        buyPerk({label:"My First Perk", amount: 10});
-      }}>Buy Perk</button>
+      <button
+        onClick={() => {
+          buyPerk({ label: 'My First Perk', amount: 10 })
+        }}
+      >
+        Buy Perk
+      </button>
       <div style={{}}>
-{perks.map((p,i)=><div key={i}> 
-          <span>Name: {p.label}</span><br/>
-          <span>Cost: {p.cost}</span><br/>
-          <span>Cps: {p.cps}</span><br/>
-          <span>Owned: {p.owned}</span><br/>
+        <h2> Perks</h2>
+        {perks.map((p, i) => (
+          <div key={i} style={{display: "flex", gap: ".5rem", justifyContent: "center"}}>
+            <span>Name: {p.label}</span>
+            <span>Cost: {p.cost}</span>
+            <span>Cps: {p.cps}</span>
+            <span>Owned: {p.owned}</span>
+            <button onClick={() => {
+              buyPerk({label: p.label, amount: 1});
+            }}>Purchase</button>
+          </div>
+        ))}
+      </div>
 
-        </div>)}
-    </div>
-        
+        <div>
+        <h2> Upgrades</h2>
+        <div>
+{upgrades.map((u,i)=> <div key={i}>
+            <strong> {u.label} </strong>
+            <span> cost: {u.cost}</span>
+            <span> lvl: {u.level}</span>
+            <span> maxed: {u.isMaxed ? "yes" : "no"}</span>
+            <button onClick={()=>{
+              upgradesActions.upgrade(u.label);
+            }}> Upgrade</button>
+          </div>)}
+        </div>
+      </div>
       <div style={{ display: 'none' }}>
-        {clickHistory.map((e,i) => (
+        <h2> Cick History </h2>
+        {clickHistory.map((e, i) => (
           <div key={i}>
             <span>Created: {e.created_at.toLocaleString()}</span>
             <br />
