@@ -5,7 +5,9 @@
 - tokens
 -  => unlock events
 
-- make events unlockable 
-- auto clicker unlockable 
-- achievements => unlocks invisible auto-clicker
+- [x] make events unlockable 
+- [x] auto clicker unlockable 
+- [x] achievements => unlocks invisible auto-clicker
+
+- refactor to service oriented structure
 

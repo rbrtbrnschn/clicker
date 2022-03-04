@@ -21,16 +21,17 @@ function App() {
   const event = eventsState.event;
   const cps = perksState.cps;
   const clickHistory = baseState.history;
-  const perks = Array.from(perksState.perks.keys());
+  const categories = Array.from(perksState.perks.keys());
 
   const dispatchCpsHook = baseActions.interval;
   const buyPerk = perksActions.buy;
   const dispatchClick = baseActions.click;
   const dispatchRandomEvent = eventsActions.dispatchRandomEvent;
 
+  const perks = Array.from(perksState.perks.values()).flatMap((e)=>e).filter((e)=>e.unlocked);
   useEffect(()=>{
     dispatchCpsHook();
-    console.log("dispatched")
+    console.info("dispatched autoclickers")
   },[])
   return (
     <div className='App'>
@@ -62,6 +63,16 @@ function App() {
         <button onClick={()=>{
         buyPerk({label:"My First Perk", amount: 10});
       }}>Buy Perk</button>
+      <div style={{}}>
+{perks.map((p,i)=><div key={i}> 
+          <span>Name: {p.label}</span><br/>
+          <span>Cost: {p.cost}</span><br/>
+          <span>Cps: {p.cps}</span><br/>
+          <span>Owned: {p.owned}</span><br/>
+
+        </div>)}
+    </div>
+        
       <div style={{ display: 'none' }}>
         {clickHistory.map((e,i) => (
           <div key={i}>

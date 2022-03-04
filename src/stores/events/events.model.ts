@@ -6,6 +6,7 @@ export interface IEvent {
   duration: number;
   callback: (tbd:Helpers<EventsModel, StoreModel, any>) => void;
   cleanup: (tbd:Helpers<EventsModel, StoreModel, any>) => void;
+  unlocked: boolean;
 }
 export interface EventsModel {
   events:Map<string, IEvent>,
