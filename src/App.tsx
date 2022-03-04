@@ -5,6 +5,7 @@ import './App.css'
 import { useStoreState, useStoreActions } from './stores'
 import { BaseStore } from './stores/base/base.store'
 import { EventsStore } from './stores/events'
+import { IEvent } from './stores/events/events.model'
 import { PerksStore } from './stores/perks/perks.store'
 import { upgrades } from './stores/upgrades/upgrades'
 
@@ -24,12 +25,12 @@ function App() {
   const event = eventsState.event
   const cps = perksState.cps
   const clickHistory = baseState.history
-  const categories = Array.from(perksState.perks.keys())
 
   const dispatchCpsHook = baseActions.interval
   const buyPerk = perksActions.buy
   const dispatchClick = baseActions.click
   const dispatchRandomEvent = eventsActions.dispatchRandomEvent
+  const dispatchEvent = eventsActions.dispatchEvent;
 
   const perks = Array.from(perksState.perks.values())
     .flatMap((e) => e)
@@ -45,6 +46,7 @@ function App() {
         pauseOnHover={true}
         draggable={true}
       />
+        <h1>Easy Peasy Clicker</h1>
       Clicks: {clicks.toFixed(5)} <br /> Cps: {cps.toFixed(2)}
       <br />
       <span> click strength: {clickStrength.toFixed(2)}</span>
@@ -57,8 +59,10 @@ function App() {
       {Array.from(events.values()).map((e, i) => (
         <div key={i}>
           <span>Label: {e.label}</span>
-          <br />
           <span>Duration: {e.duration}</span>
+          <button onClick={() => {
+            dispatchEvent(e.label)
+          }}>Dispatch</button>
         </div>
       ))}
       <button onClick={() => dispatchClick()}>Inc</button>

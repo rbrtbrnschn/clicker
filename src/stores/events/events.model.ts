@@ -12,7 +12,7 @@ export interface EventsModel {
   events:Map<string, IEvent>,
   event: IEvent | null,
   setEvent: Action<EventsModel, IEvent | null>,
-  dispatchEvent: Thunk<EventsModel, IEvent | null,any, StoreModel>,
+  dispatchEvent: Thunk<EventsModel, string | null,any, StoreModel>,
   dispatchRandomEvent: Thunk<EventsModel, undefined,any, StoreModel>
 }
 

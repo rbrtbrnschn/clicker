@@ -8,11 +8,15 @@ export const initialEventsData: EventsModel = {
   setEvent: action((state,event)=>{
     state.event = event || null;
   }),
-  dispatchEvent: thunk((state, event, helpers ) => {
-    const noEventGiven = !event
-    const eventNotNull = event !== null
+  dispatchEvent: thunk((state, label, helpers ) => {
+    const noEventGiven = !label
+    const eventNotNull = label !== null
 
     if (noEventGiven && eventNotNull) return
+    const events = Array.from(helpers.getState().events.values());
+    const event = events.find((e)=>e.label === label);
+    if(!event) return;
+
     state.setEvent(event);
     if (!eventNotNull) return
 
@@ -28,7 +32,7 @@ export const initialEventsData: EventsModel = {
     const randomIndex = Math.floor(events.length * Math.random())
     const event = events[randomIndex]
 
-    state.dispatchEvent(event || null)
+    state.dispatchEvent(event.label || null)
   }),
 }
 export const EventsStore = createContextStore(initialEventsData)
