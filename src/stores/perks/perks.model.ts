@@ -16,6 +16,7 @@ export interface IPerk {
   cps: number;
   cost: number;
   owned:number;
+  unlocked:boolean;
 }
 interface BuyDto {
   amount: number;
@@ -26,4 +27,5 @@ export interface PerksModel {
   cps: Computed<PerksModel, number>;
   buy: Action<PerksModel, BuyDto>;
   sell: Action<PerksModel, BuyDto>;
+  unlock: Action<PerksModel, string>;
 }

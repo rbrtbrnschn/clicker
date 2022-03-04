@@ -42,7 +42,18 @@ export const initialPerksData: PerksModel = {
 
   }),
   sell: action((state,payload)=>{
-
+    // TODO
+  }),
+  unlock: action((state,label)=> {
+const categories = Array.from(state.perks.keys())
+    const category = categories.find((category) => {
+      return state.perks
+        .get(category)
+        ?.find((perk) => perk.label === label)
+    });
+    const perk = state.perks.get(category as ICategory)?.find((p)=>p.label === label);
+    if(!perk) return;
+    perk.unlocked = true;
   })
 }
 export const PerksStore = createContextStore(initialPerksData)

@@ -11,7 +11,8 @@ const myEvents: IEvent[] = [
     },
     callback: (helpers) => {
       helpers.getStoreActions().base.setClickStrengthModifier(2);
-    }
+    },
+    unlocked: true,
   },
   {
 
@@ -22,7 +23,8 @@ const myEvents: IEvent[] = [
     },
     callback: (helpers) => {
       helpers.getStoreActions().base.setClickStrengthModifier(3);
-    }
+    },
+    unlocked: false,
   }
 ]
 
