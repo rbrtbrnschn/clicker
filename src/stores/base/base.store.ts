@@ -49,6 +49,10 @@ export const initialBaseData: BaseModel = {
       state.increase(cps)
     }, 1000)
   }),
+
+  increaseClickStrengthBase: action((state,delta)=>{
+    state.clickStrengthBase += delta;
+  })
   
 }
 export const BaseStore = createContextStore(initialBaseData)

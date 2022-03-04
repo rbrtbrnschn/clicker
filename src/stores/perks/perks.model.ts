@@ -1,4 +1,5 @@
-import { Action, Computed } from "easy-peasy";
+import { Action, Computed, Thunk } from "easy-peasy";
+import { StoreModel } from "..";
 
 enum PerkCategories {
   "basic",
@@ -25,7 +26,7 @@ interface BuyDto {
 export interface PerksModel {
   perks: Map<ICategory,IPerk[]>;
   cps: Computed<PerksModel, number>;
-  buy: Action<PerksModel, BuyDto>;
+  buy: Thunk<PerksModel, BuyDto, any, StoreModel>;
   sell: Action<PerksModel, BuyDto>;
   unlock: Action<PerksModel, string>;
 }

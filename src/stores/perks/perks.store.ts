@@ -3,6 +3,7 @@ import {
   computed,
   createContextStore,
   createTypedHooks,
+  thunk,
 } from 'easy-peasy'
 import { perks } from './perks'
 import { ICategory, IPerk, PerksModel } from './perks.model'
@@ -29,16 +30,20 @@ export const initialPerksData: PerksModel = {
     ],
     (num) => num
   ),
-  buy: action((state, payload) => {
-    const categories = Array.from(state.perks.keys())
+  buy: thunk((state, payload, helpers) => {
+    const categories = Array.from(helpers.getState().perks.keys())
     const category = categories.find((category) => {
-      return state.perks
+      return helpers.getState().perks
         .get(category)
         ?.find((perk) => perk.label === payload.label)
     });
-    const perk = state.perks.get(category as ICategory)?.find((p)=>p.label === payload.label);
+    const perk = helpers.getState().perks.get(category as ICategory)?.find((p)=>p.label === payload.label);
     if(!perk) return;
+
+    if(helpers.getStoreState().base.clicks < perk.cost) return;
     perk.owned += payload.amount;
+    helpers.getStoreActions().base.decrease(perk.cost);
+
 
   }),
   sell: action((state,payload)=>{
