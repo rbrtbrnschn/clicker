@@ -27,7 +27,7 @@ export const badges: IBadge[] = [
     label: '100 Clicks!',
     achieved: false,
     condition: (helpers) => {
-      return helpers.getStoreState().base.history.length >= 100
+      return helpers.getStoreState().base.history.length >= 2500
     },
     onAchieved: (helpers) => {
       helpers.getStoreActions().perks.unlock("My First Other Perk");
