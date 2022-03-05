@@ -7,9 +7,11 @@ import { BaseStore } from './stores/base/base.store'
 import { EventsStore } from './stores/events'
 import { IEvent } from './stores/events/events.model'
 import { PerksStore } from './stores/perks/perks.store'
-import { upgrades } from './stores/upgrades/upgrades'
+import { useStoreRehydrated } from 'easy-peasy'
 
 function App() {
+  const isRehydrated = useStoreRehydrated()
+
   const baseState = useStoreState((state) => state.base)
   const eventsState = useStoreState((state) => state.events)
   const perksState = useStoreState((state) => state.perks)
@@ -25,20 +27,23 @@ function App() {
   const event = eventsState.event
   const cps = perksState.cps
   const clickHistory = baseState.history
+  const upgrades = upgradesState.upgrades
 
   const dispatchCpsHook = baseActions.interval
   const buyPerk = perksActions.buy
   const dispatchClick = baseActions.click
   const dispatchRandomEvent = eventsActions.dispatchRandomEvent
-  const dispatchEvent = eventsActions.dispatchEvent;
+  const dispatchEvent = eventsActions.dispatchEvent
 
-  const perks = Array.from(perksState.perks.values())
+  const perks = Object.values(perksState.perks)
     .flatMap((e) => e)
     .filter((e) => e.unlocked)
   useEffect(() => {
     dispatchCpsHook()
     console.info('dispatched autoclickers')
   }, [])
+  if (!isRehydrated) return <div>Loading...</div>
+
   return (
     <div className='App'>
       <ToastContainer
@@ -46,7 +51,7 @@ function App() {
         pauseOnHover={true}
         draggable={true}
       />
-        <h1>Easy Peasy Clicker</h1>
+      <h1>Easy Peasy Clicker</h1>
       Clicks: {clicks.toFixed(5)} <br /> Cps: {cps.toFixed(2)}
       <br />
       <span> click strength: {clickStrength.toFixed(2)}</span>
@@ -60,9 +65,13 @@ function App() {
         <div key={i}>
           <span>Label: {e.label}</span>
           <span>Duration: {e.duration}</span>
-          <button onClick={() => {
-            dispatchEvent(e.label)
-          }}>Dispatch</button>
+          <button
+            onClick={() => {
+              dispatchEvent(e.label)
+            }}
+          >
+            Dispatch
+          </button>
         </div>
       ))}
       <button onClick={() => dispatchClick()}>Inc</button>
@@ -83,30 +92,44 @@ function App() {
       <div style={{}}>
         <h2> Perks</h2>
         {perks.map((p, i) => (
-          <div key={i} style={{display: "flex", gap: ".5rem", justifyContent: "center"}}>
+          <div
+            key={i}
+            style={{ display: 'flex', gap: '.5rem', justifyContent: 'center' }}
+          >
             <span>Name: {p.label}</span>
             <span>Cost: {p.cost}</span>
             <span>Cps: {p.cps}</span>
             <span>Owned: {p.owned}</span>
-            <button onClick={() => {
-              buyPerk({label: p.label, amount: 1});
-            }}>Purchase</button>
+            <button
+              onClick={() => {
+                buyPerk({ label: p.label, amount: 1 })
+              }}
+            >
+              Purchase
+            </button>
           </div>
         ))}
       </div>
-
-        <div>
+      <div>
         <h2> Upgrades</h2>
         <div>
-{upgrades.map((u,i)=> <div key={i}>
-            <strong> {u.label} </strong>
-            <span> cost: {u.cost}</span>
-            <span> lvl: {u.level}</span>
-            <span> maxed: {u.isMaxed ? "yes" : "no"}</span>
-            <button onClick={()=>{
-              upgradesActions.upgrade(u.label);
-            }}> Upgrade</button>
-          </div>)}
+          {upgrades.map((u, i) => (
+            <div key={i}>
+              <strong> {u.label} </strong>
+              <span> cost: {u.levels[u.level]?.cost || 0}</span>
+              <span> description: {u.levels[u.level]?.description || ""}</span>
+              <span> lvl: {u.level}</span>
+              <span> maxed: {u.isMaxed ? 'yes' : 'no'}</span>
+              <button
+                onClick={() => {
+                  upgradesActions.dispatchUpgrade(u.label)
+                }}
+              >
+                {' '}
+                Upgrade
+              </button>
+            </div>
+          ))}
         </div>
       </div>
       <div style={{ display: 'none' }}>

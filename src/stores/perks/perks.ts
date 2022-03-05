@@ -1,8 +1,7 @@
-import { IPerk, ICategory } from './perks.model'
+import { IPerk, PerkCategoryName } from './perks.model'
 
-export const perks = new Map<ICategory, IPerk[]>()
 
-const myBasicPerks: IPerk[] = [
+const basic: IPerk[] = [
   {
     label: 'My First Perk',
     cps: 0.1,
@@ -28,7 +27,7 @@ const myBasicPerks: IPerk[] = [
     unlocked: true,
   },
 ]
-const myAdvancedPerks: IPerk[] = [
+const advanced: IPerk[] = [
   {
     label: 'My First Other Perk',
     cps: 0.1,
@@ -38,8 +37,11 @@ const myAdvancedPerks: IPerk[] = [
     unlocked: false,
   },
 ]
-const myAwesomePerks: IPerk[] = []
+const awesome: IPerk[] = []
 
-perks.set({ label: 'basic' }, myBasicPerks)
-perks.set({ label: 'advanced' }, myAdvancedPerks)
-perks.set({ label: 'awesome' }, myAwesomePerks)
+
+export const perks: Record<PerkCategoryName, IPerk[]> = {
+  basic,
+  advanced,
+  awesome
+}

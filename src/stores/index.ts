@@ -3,12 +3,14 @@ import {
   createTypedHooks,
   unstable_effectOn,
   Unstable_EffectOn,
-  persist
+  persist,
 } from 'easy-peasy'
 import { initialBadgesData } from './badges/badge.store'
+import { badges } from './badges/badges'
 import { BadgesModel } from './badges/badges.model'
 import { BaseModel } from './base/base.model'
 import { initialBaseData } from './base/base.store'
+import { storageEngine } from './engine'
 import { EventsModel } from './events/events.model'
 import { initialEventsData } from './events/events.store'
 import { PerksModel } from './perks/perks.model'
@@ -23,6 +25,7 @@ export interface StoreModel {
   badges: BadgesModel
   upgrades: UpgradesModel
   onClicks: Unstable_EffectOn<StoreModel, StoreModel>
+  isRehydrated: Boolean,
 }
 
 const initialData: StoreModel = {
@@ -31,11 +34,14 @@ const initialData: StoreModel = {
   perks: initialPerksData,
   badges: initialBadgesData,
   upgrades: initialUpgradesData,
+  isRehydrated: false,
   onClicks: unstable_effectOn(
-    [(state,storeState) => {
-      console.log(storeState)
-      return state.base.clicks
-    }],
+    [
+      (state, storeState) => {
+        console.log(state)
+        return state.base.clicks
+      },
+    ],
     (actions, change, helpers) => {
       const myState = helpers.getStoreState()
       const myActions = helpers.getStoreActions()
@@ -46,14 +52,17 @@ const initialData: StoreModel = {
         if (!achieved) return
 
         myActions.badges.completeBadge(b.label)
-        myActions.badges.completeBadge(b.label)
         b.onAchieved(helpers)
       })
       return undefined
     }
   ),
 }
-export const store = createStore<StoreModel>(initialData)
+export const store = createStore<StoreModel>(
+  persist(initialData, {
+    storage: storageEngine
+})
+)
 
 export const { useStoreActions, useStoreState, useStoreDispatch, useStore } =
   createTypedHooks<StoreModel>()

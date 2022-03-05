@@ -1,4 +1,4 @@
-import { Action, Helpers, Unstable_EffectOn } from 'easy-peasy'
+import { Action, ActionOn, Helpers, ThunkOn, Unstable_EffectOn } from 'easy-peasy'
 import { StoreModel } from '../'
 import { BaseModel } from '../base/base.model'
 import { EventsModel } from '../events/events.model';
@@ -19,5 +19,5 @@ export interface IBadge {
 export interface BadgesModel {
   badges: IBadge[]
   completeBadge: Action<BadgesModel, string>
-  onAchieved: Unstable_EffectOn<BadgesModel,StoreModel>;
+  onCompleteBadge: ThunkOn<BadgesModel,any,StoreModel>;
 }
