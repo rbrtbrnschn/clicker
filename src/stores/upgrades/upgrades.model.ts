@@ -1,18 +1,22 @@
 import { Action, Helpers, Thunk } from "easy-peasy";
 import { StoreModel } from "..";
-import { Upgrade } from "./upgrades";
 
+export interface ILevel {
+  cost: number;
+  description: string;
+  callback: (helpers: Helpers<UpgradesModel, StoreModel, any>) => void;
+}
 export interface IUpgrade {
   label: string;
   category: string;
   cost:number;
   level: number;
   isMaxed: boolean;
-  callback: ((helpers: Helpers<UpgradesModel, StoreModel, any>) => void)[];
-  setCost: (newCost: number) => void;
+  levels: ILevel[];
 
 }
 export interface UpgradesModel {
-  upgrades: Upgrade[];
-  upgrade: Thunk<UpgradesModel, string,any, StoreModel>;
+  upgrades: IUpgrade[];
+  upgrade: Action<UpgradesModel,string>;
+  dispatchUpgrade: Thunk<UpgradesModel, string,any, StoreModel>;
 }
