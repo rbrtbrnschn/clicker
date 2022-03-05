@@ -15,12 +15,13 @@ export const initialUpgradesData: UpgradesModel= {
   dispatchUpgrade: thunk((state, label, helpers)=>{
     const upgrade = helpers.getState().upgrades.find((u)=>u.label === label);
     if(!upgrade) return;
+    const level = upgrade.levels[upgrade.level];
     
-    if(upgrade.cost > helpers.getStoreState().base.clicks) return;
+    if(level.cost > helpers.getStoreState().base.clicks) return;
 
-    upgrade.levels[upgrade.level].callback(helpers);
+    level.callback(helpers);
     state.upgrade(label);
-    helpers.getStoreActions().base.decrease(upgrade.cost);
+    helpers.getStoreActions().base.decrease(level.cost);
 
   })
 

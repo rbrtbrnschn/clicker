@@ -2,6 +2,7 @@ import { PersistStorage } from 'easy-peasy'
 import { StoreModel } from '.'
 import { badges } from './badges/badges'
 import { upgrades } from './upgrades/upgrades'
+import { IUpgrade } from './upgrades/upgrades.model'
 type StorageEngine =
   | typeof localStorage
   | typeof sessionStorage
@@ -22,7 +23,8 @@ export const storageEngine: StorageEngine = {
     })
    
     data.upgrades.upgrades = data.upgrades.upgrades.map((u,i)=>{
-      const upgrade = {...upgrades[i],...u};
+      delete (u  as Partial<IUpgrade>).levels;
+      const upgrade: IUpgrade= {...upgrades[i],...u};
       return upgrade;
     })
     return data
