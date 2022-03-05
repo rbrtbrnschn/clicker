@@ -34,6 +34,12 @@ export const initialEventsData: EventsModel = {
 
     state.dispatchEvent(event.label || null)
   }),
+
+  reset: action((state)=>{
+    state.event = null;
+    // TODO redundant
+    state.events = events;
+  })
 }
 export const EventsStore = createContextStore(initialEventsData)
 export const {

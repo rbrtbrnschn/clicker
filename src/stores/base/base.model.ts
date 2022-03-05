@@ -26,4 +26,6 @@ export interface BaseModel {
 
   increaseClickStrengthBase: Action<BaseModel, number>;
 
+  reset: Action<BaseModel>;
+
 }

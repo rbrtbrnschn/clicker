@@ -14,7 +14,6 @@ export const storageEngine: StorageEngine = {
     if (!rawData) return
 
     const data = JSON.parse(rawData) as StoreModel
-    data.isRehydrated = true
     data.events.event = null
     data.base.clickStrengthModifier = 1
 

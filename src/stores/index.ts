@@ -17,6 +17,8 @@ import { PerksModel } from './perks/perks.model'
 import { initialPerksData } from './perks/perks.store'
 import { UpgradesModel } from './upgrades/upgrades.model'
 import { initialUpgradesData } from './upgrades/upgrades.store'
+import { UtilsModel } from './utils/utils.model'
+import { initialUtilsData } from './utils/utils.store'
 
 export interface StoreModel {
   base: BaseModel
@@ -24,8 +26,8 @@ export interface StoreModel {
   perks: PerksModel
   badges: BadgesModel
   upgrades: UpgradesModel
+  utils: UtilsModel;
   onClicks: Unstable_EffectOn<StoreModel, StoreModel>
-  isRehydrated: Boolean,
 }
 
 const initialData: StoreModel = {
@@ -34,7 +36,7 @@ const initialData: StoreModel = {
   perks: initialPerksData,
   badges: initialBadgesData,
   upgrades: initialUpgradesData,
-  isRehydrated: false,
+  utils: initialUtilsData,
   onClicks: unstable_effectOn(
     [
       (state, storeState) => {

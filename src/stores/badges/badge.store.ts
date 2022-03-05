@@ -16,4 +16,7 @@ export const initialBadgesData: BadgesModel = {
       toast.success(`Earned ${payload.payload} badge.`)
     }
   ),
+  reset: action((state)=>{
+    state.badges = badges;
+  })
 }
