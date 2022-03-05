@@ -12,6 +12,7 @@ export interface IPerk {
   label: string;
   category: PerkCategoryName;
   cps: number;
+  costIncrease: number;
   cost: number;
   owned:number;
   unlocked:boolean;

@@ -31,13 +31,21 @@ export const initialPerksData: PerksModel = {
     (num) => num
   ),
   buy: thunk((state, payload, helpers) => {
-    const categories = Object.keys(helpers.getState().perks);
     const perk = Object.values(helpers.getState().perks).flatMap((e)=>e).find((p)=>p.label === payload.label);
     if(!perk) return;
 
+    // TODO check logic
+    const myPerk = {
+      cost: 10,
+      label: "My First Perk",
+      owned: 1,
+      costIncrease: 1.1,
+    }
     if(helpers.getStoreState().base.clicks < perk.cost) return;
-    perk.owned += payload.amount;
     helpers.getStoreActions().base.decrease(perk.cost);
+
+    perk.cost += (perk.owned + 1 * perk.costIncrease);
+    perk.owned += payload.amount;
 
 
   }),

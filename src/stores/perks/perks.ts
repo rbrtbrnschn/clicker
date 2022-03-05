@@ -9,6 +9,7 @@ const basic: IPerk[] = [
     category: 'basic',
     owned: 0,
     unlocked: true,
+    costIncrease: 1.1,
   },
   {
     label: 'My Second Perk',
@@ -17,6 +18,7 @@ const basic: IPerk[] = [
     category: 'basic',
     owned: 0,
     unlocked: true,
+    costIncrease: 1.1,
   },
   {
     label: 'My Third Perk',
@@ -25,6 +27,7 @@ const basic: IPerk[] = [
     category: 'basic',
     owned: 0,
     unlocked: true,
+    costIncrease: 1.1,
   },
 ]
 const advanced: IPerk[] = [
@@ -35,6 +38,7 @@ const advanced: IPerk[] = [
     category: 'advanced',
     owned: 0,
     unlocked: false,
+    costIncrease: 1.1,
   },
 ]
 const awesome: IPerk[] = []
