@@ -94,13 +94,7 @@ function App() {
       >
         Dispatch Event
       </button>
-      <button
-        onClick={() => {
-          buyPerk({ label: 'My First Perk', amount: 10 })
-        }}
-      >
-        Buy Perk
-      </button>
+      
       <div style={{}}>
         <h2> Perks</h2>
         {perks.map((p, i) => (

@@ -14,7 +14,13 @@ export const initialPrestigeData: PrestigeModel = {
     const addedTokens = helpers.getStoreState().base.totalClicks / 1000;
     actions.setPrestigeCount(helpers.getState().prestigeCount + 1);
     actions.setTokenCount(helpers.getState().tokenCount + addedTokens);
-    helpers.getStoreActions().utils.reset();
+    const storeActions = helpers.getStoreActions();
+
+    storeActions.base.reset();
+    storeActions.events.reset();
+    storeActions.perks.reset();
+    storeActions.upgrades.reset();
+
   }),
 
   reset: thunk((actions,_,helpers)=>{
