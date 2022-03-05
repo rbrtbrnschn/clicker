@@ -14,5 +14,7 @@ export interface EventsModel {
   setEvent: Action<EventsModel, IEvent | null>,
   dispatchEvent: Thunk<EventsModel, string | null,any, StoreModel>,
   dispatchRandomEvent: Thunk<EventsModel, undefined,any, StoreModel>
+
+  reset: Action<EventsModel>
 }
 

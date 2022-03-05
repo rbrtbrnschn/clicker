@@ -52,6 +52,13 @@ export const initialBaseData: BaseModel = {
 
   increaseClickStrengthBase: action((state,delta)=>{
     state.clickStrengthBase += delta;
+  }),
+
+  reset: action((state)=>{
+    state.clickStrengthModifier = 1;
+    state.clicks = 0;
+    state.history = [];
+    state.clickStrengthBase = 0.1;
   })
   
 }

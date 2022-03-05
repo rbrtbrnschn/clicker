@@ -48,6 +48,10 @@ export const initialPerksData: PerksModel = {
     const perk = Object.values(state.perks).flatMap((e)=>e)?.find((p)=>p.label === label);
     if(!perk) return;
     perk.unlocked = true;
+  }),
+
+  reset: action((state)=>{
+    state.perks = perks;
   })
 }
 export const PerksStore = createContextStore(initialPerksData)

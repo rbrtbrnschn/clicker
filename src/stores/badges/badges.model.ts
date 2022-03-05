@@ -20,4 +20,6 @@ export interface BadgesModel {
   badges: IBadge[]
   completeBadge: Action<BadgesModel, string>
   onCompleteBadge: ThunkOn<BadgesModel,any,StoreModel>;
+
+  reset: Action<BadgesModel>;
 }

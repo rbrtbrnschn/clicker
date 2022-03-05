@@ -19,4 +19,6 @@ export interface UpgradesModel {
   upgrades: IUpgrade[];
   upgrade: Action<UpgradesModel,string>;
   dispatchUpgrade: Thunk<UpgradesModel, string,any, StoreModel>;
+
+  reset: Action<UpgradesModel>;
 }

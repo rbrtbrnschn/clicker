@@ -20,6 +20,7 @@ function App() {
   const eventsActions = useStoreActions((state) => state.events)
   const perksActions = useStoreActions((state) => state.perks)
   const upgradesActions = useStoreActions((state) => state.upgrades)
+  const utilsActions = useStoreActions((state)=>state.utils);
 
   const clicks = baseState.clicks
   const clickStrength = baseState.clickStrength
@@ -34,6 +35,7 @@ function App() {
   const dispatchClick = baseActions.click
   const dispatchRandomEvent = eventsActions.dispatchRandomEvent
   const dispatchEvent = eventsActions.dispatchEvent
+  const dispatchGlobalReset = utilsActions.reset;
 
   const perks = Object.values(perksState.perks)
     .flatMap((e) => e)
@@ -57,9 +59,8 @@ function App() {
       <span> click strength: {clickStrength.toFixed(2)}</span>
       <br />
       <span>Total Clicks: {clickHistory.length}</span>
-      <div>
+      <button onClick={()=>{dispatchGlobalReset()}}>Reset</button>
         <h3> Current Event: {event?.label || 'none'}</h3>
-      </div>
       <h3>Events</h3>
       {Array.from(events.values()).map((e, i) => (
         <div key={i}>

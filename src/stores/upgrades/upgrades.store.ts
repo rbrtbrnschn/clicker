@@ -23,6 +23,9 @@ export const initialUpgradesData: UpgradesModel= {
     state.upgrade(label);
     helpers.getStoreActions().base.decrease(level.cost);
 
+  }),
+  reset: action((state)=>{
+    state.upgrades = upgrades;
   })
 
 }

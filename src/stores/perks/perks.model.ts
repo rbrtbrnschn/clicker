@@ -26,4 +26,6 @@ export interface PerksModel {
   buy: Thunk<PerksModel, BuyDto, any, StoreModel>;
   sell: Action<PerksModel, BuyDto>;
   unlock: Action<PerksModel, string>;
+
+  reset: Action<PerksModel>;
 }
