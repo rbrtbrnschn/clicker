@@ -16,11 +16,13 @@ function App() {
   const eventsState = useStoreState((state) => state.events)
   const perksState = useStoreState((state) => state.perks)
   const upgradesState = useStoreState((state) => state.upgrades)
+  const prestigeState = useStoreState((state)=>state.prestige);
   const baseActions = useStoreActions((state) => state.base)
   const eventsActions = useStoreActions((state) => state.events)
   const perksActions = useStoreActions((state) => state.perks)
   const upgradesActions = useStoreActions((state) => state.upgrades)
   const utilsActions = useStoreActions((state)=>state.utils);
+  const prestigeActions = useStoreActions((state)=>state.prestige);
 
   const clicks = baseState.clicks
   const clickStrength = baseState.clickStrength
@@ -36,6 +38,7 @@ function App() {
   const dispatchRandomEvent = eventsActions.dispatchRandomEvent
   const dispatchEvent = eventsActions.dispatchEvent
   const dispatchGlobalReset = utilsActions.reset;
+  const dispatchPrestige = prestigeActions.disptachPrestige;
 
   const perks = Object.values(perksState.perks)
     .flatMap((e) => e)
@@ -59,7 +62,15 @@ function App() {
       <span> click strength: {clickStrength.toFixed(2)}</span>
       <br />
       <span>Total Clicks: {clickHistory.length}</span>
+      <br/>
+      <span>Prestige: {prestigeState.prestigeCount}</span>
+        <br/>
+      <span>Prestige Tokens: {prestigeState.tokenCount}</span>
+      <br/>
+      <div style={{display: "flex",gap: "1rem", justifyContent: "center"}}>
       <button onClick={()=>{dispatchGlobalReset()}}>Reset</button>
+      <button onClick={()=>{dispatchPrestige()}}>Prestige</button>
+    </div>
         <h3> Current Event: {event?.label || 'none'}</h3>
       <h3>Events</h3>
       {Array.from(events.values()).map((e, i) => (

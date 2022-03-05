@@ -15,6 +15,8 @@ import { EventsModel } from './events/events.model'
 import { initialEventsData } from './events/events.store'
 import { PerksModel } from './perks/perks.model'
 import { initialPerksData } from './perks/perks.store'
+import { PrestigeModel } from './prestige/prestige.model'
+import { initialPrestigeData } from './prestige/prestige.store'
 import { UpgradesModel } from './upgrades/upgrades.model'
 import { initialUpgradesData } from './upgrades/upgrades.store'
 import { UtilsModel } from './utils/utils.model'
@@ -27,6 +29,7 @@ export interface StoreModel {
   badges: BadgesModel
   upgrades: UpgradesModel
   utils: UtilsModel;
+  prestige: PrestigeModel;
   onClicks: Unstable_EffectOn<StoreModel, StoreModel>
 }
 
@@ -37,6 +40,7 @@ const initialData: StoreModel = {
   badges: initialBadgesData,
   upgrades: initialUpgradesData,
   utils: initialUtilsData,
+  prestige: initialPrestigeData,
   onClicks: unstable_effectOn(
     [
       (state, storeState) => {
