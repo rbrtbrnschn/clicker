@@ -8,9 +8,6 @@ enum PerkCategories {
 }
 export type PerkCategoryName = keyof typeof PerkCategories;
 
-export interface ICategory {
-  label: PerkCategoryName;
-}
 export interface IPerk {
   label: string;
   category: PerkCategoryName;
@@ -24,7 +21,7 @@ interface BuyDto {
   label: string;
 }
 export interface PerksModel {
-  perks: Map<ICategory,IPerk[]>;
+  perks: Record<PerkCategoryName,IPerk[]>;
   cps: Computed<PerksModel, number>;
   buy: Thunk<PerksModel, BuyDto, any, StoreModel>;
   sell: Action<PerksModel, BuyDto>;

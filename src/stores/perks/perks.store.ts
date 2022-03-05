@@ -6,7 +6,7 @@ import {
   thunk,
 } from 'easy-peasy'
 import { perks } from './perks'
-import { ICategory, IPerk, PerksModel } from './perks.model'
+import {  IPerk, PerkCategoryName, PerksModel } from './perks.model'
 import { enableMapSet } from 'immer'
 
 enableMapSet()
@@ -16,9 +16,9 @@ export const initialPerksData: PerksModel = {
   cps: computed(
     [
       (state) => {
-        const entries = Array.from(state.perks.entries())
+        const entries = Object.entries(state.perks);
         return entries
-          .map(([_, category]) => {
+          .map(([categoryName, category]) => {
             return category
               .map((perk) => {
                 return perk.cps * perk.owned
@@ -31,13 +31,8 @@ export const initialPerksData: PerksModel = {
     (num) => num
   ),
   buy: thunk((state, payload, helpers) => {
-    const categories = Array.from(helpers.getState().perks.keys())
-    const category = categories.find((category) => {
-      return helpers.getState().perks
-        .get(category)
-        ?.find((perk) => perk.label === payload.label)
-    });
-    const perk = helpers.getState().perks.get(category as ICategory)?.find((p)=>p.label === payload.label);
+    const categories = Object.keys(helpers.getState().perks);
+    const perk = Object.values(helpers.getState().perks).flatMap((e)=>e).find((p)=>p.label === payload.label);
     if(!perk) return;
 
     if(helpers.getStoreState().base.clicks < perk.cost) return;
@@ -50,13 +45,7 @@ export const initialPerksData: PerksModel = {
     // TODO
   }),
   unlock: action((state,label)=> {
-const categories = Array.from(state.perks.keys())
-    const category = categories.find((category) => {
-      return state.perks
-        .get(category)
-        ?.find((perk) => perk.label === label)
-    });
-    const perk = state.perks.get(category as ICategory)?.find((p)=>p.label === label);
+    const perk = Object.values(state.perks).flatMap((e)=>e)?.find((p)=>p.label === label);
     if(!perk) return;
     perk.unlocked = true;
   })
