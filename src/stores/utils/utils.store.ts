@@ -9,6 +9,7 @@ export const initialUtilsData: UtilsModel = {
     storeActions.events.reset();
     storeActions.perks.reset();
     storeActions.upgrades.reset();
+    storeActions.prestige.reset();
   })
 
 }

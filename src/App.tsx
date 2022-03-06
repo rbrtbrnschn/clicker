@@ -3,10 +3,6 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './App.css'
 import { useStoreState, useStoreActions } from './stores'
-import { BaseStore } from './stores/base/base.store'
-import { EventsStore } from './stores/events'
-import { IEvent } from './stores/events/events.model'
-import { PerksStore } from './stores/perks/perks.store'
 import { useStoreRehydrated } from 'easy-peasy'
 
 function App() {

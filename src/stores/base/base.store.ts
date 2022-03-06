@@ -6,10 +6,11 @@ import {
   thunk,
 } from 'easy-peasy'
 import { BaseModel } from './base.model'
+import {config} from "../../config";
 
 export const initialBaseData: BaseModel = {
-  clicks: 0.1,
-  clickStrengthBase: 0.1,
+  clicks: config.base.clicks,
+  clickStrengthBase: config.base.clickStrengthBase,
   clickStrengthModifier: 1,
   clickStrength: computed(
     (state) => state.clickStrengthBase * state.clickStrengthModifier
@@ -56,9 +57,9 @@ export const initialBaseData: BaseModel = {
 
   reset: action((state)=>{
     state.clickStrengthModifier = 1;
-    state.clicks = 0;
+    state.clicks = config.base.clicks;
     state.history = [];
-    state.clickStrengthBase = 0.1;
+    state.clickStrengthBase = config.base.clickStrengthBase;
   })
   
 }
