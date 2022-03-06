@@ -49,7 +49,7 @@ export function AppV1() {
         draggable={true}
       />
       <h1>Easy Peasy Clicker</h1>
-      Clicks: {clicks.toFixed(5)} <br /> Cps: {cps.toFixed(2)}
+      Clicks: {clicks.toFixed(2)} <br /> Cps: {cps.toFixed(2)}
       <br />
       <span> click strength: {clickStrength.toFixed(2)}</span>
       <br />
