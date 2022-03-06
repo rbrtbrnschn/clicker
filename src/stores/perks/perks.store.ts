@@ -13,11 +13,15 @@ enableMapSet()
 
 export const initialPerksData: PerksModel = {
   perks: getInitialPerks(),
+  cpsModifier: 1,
+  setCpsModifier: action((state,newCpsModifier)=>{
+    state.cpsModifier = newCpsModifier;
+  }),
   cps: computed(
     [
       (state) => {
         const entries = Object.entries(state.perks);
-        return entries
+        const baseCps = entries
           .map(([categoryName, category]) => {
             return category
               .map((perk) => {
@@ -26,6 +30,7 @@ export const initialPerksData: PerksModel = {
               .reduce((prev, curr) => (curr += prev), 0)
           })
           .reduce((prev, curr) => (curr += prev), 0)
+        return baseCps * state.cpsModifier;
       },
     ],
     (num) => num
