@@ -44,7 +44,6 @@ const initialData: StoreModel = {
   onClicks: unstable_effectOn(
     [
       (state, storeState) => {
-        console.log(state)
         return state.base.clicks
       },
     ],
@@ -65,9 +64,12 @@ const initialData: StoreModel = {
   ),
 }
 export const store = createStore<StoreModel>(
-  persist(initialData, {
+  persist(
+    initialData,
+    {
     storage: storageEngine
 })
+  
 )
 
 export const { useStoreActions, useStoreState, useStoreDispatch, useStore } =

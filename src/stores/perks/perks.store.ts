@@ -5,14 +5,14 @@ import {
   createTypedHooks,
   thunk,
 } from 'easy-peasy'
-import { perks } from './perks'
+import { perks,getInitialPerks } from './perks'
 import {  IPerk, PerkCategoryName, PerksModel } from './perks.model'
 import { enableMapSet } from 'immer'
 
 enableMapSet()
 
 export const initialPerksData: PerksModel = {
-  perks: perks,
+  perks: getInitialPerks(),
   cps: computed(
     [
       (state) => {
@@ -34,13 +34,6 @@ export const initialPerksData: PerksModel = {
     const perk = Object.values(helpers.getState().perks).flatMap((e)=>e).find((p)=>p.label === payload.label);
     if(!perk) return;
 
-    // TODO check logic
-    const myPerk = {
-      cost: 10,
-      label: "My First Perk",
-      owned: 1,
-      costIncrease: 1.1,
-    }
     if(helpers.getStoreState().base.clicks < perk.cost) return;
     helpers.getStoreActions().base.decrease(perk.cost);
 
@@ -59,7 +52,8 @@ export const initialPerksData: PerksModel = {
   }),
 
   reset: action((state)=>{
-    state.perks = perks;
+    const oldPerks = getInitialPerks();
+    state.perks = oldPerks;
   })
 }
 export const PerksStore = createContextStore(initialPerksData)

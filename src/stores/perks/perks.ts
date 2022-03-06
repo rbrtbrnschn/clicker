@@ -44,8 +44,13 @@ const advanced: IPerk[] = [
 const awesome: IPerk[] = []
 
 
+
 export const perks: Record<PerkCategoryName, IPerk[]> = {
   basic,
   advanced,
   awesome
+}
+
+export const getInitialPerks = () => {
+  return JSON.parse(JSON.stringify({...perks}));
 }
