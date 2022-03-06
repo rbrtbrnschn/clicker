@@ -24,6 +24,8 @@ interface BuyDto {
 export interface PerksModel {
   perks: Record<PerkCategoryName,IPerk[]>;
   cps: Computed<PerksModel, number>;
+  cpsModifier: number;
+  setCpsModifier: Action<PerksModel,number>;
   buy: Thunk<PerksModel, BuyDto, any, StoreModel>;
   sell: Action<PerksModel, BuyDto>;
   unlock: Action<PerksModel, string>;

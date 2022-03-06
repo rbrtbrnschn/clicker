@@ -10,7 +10,7 @@
 - [x] achievements => unlocks invisible auto-clicker
 
 - [x] prestige kills badges 
-- add cpsModifier 
+- [x] add cpsModifier 
 - [x] create config to use for base Click Strength so we can reset to defaults
 
 ## Refactors
@@ -21,12 +21,3 @@
 - upgrades disapear on max
 - achievement section ? marks undiscovered achievements 
 - upgrade section ? marks locked upgrades
-
-
-cps: 10
-cpsModifier: 2
-cps = cps * cpsModifier;
-
-upgrade: cpsModifier = cpsModifier * 1.1; // => 22 cps; // relational update, 10% increase
-upgraded2: cpsModifier = cpsModifier + 1; // => 30 cps; // unrelational update, add 1 to modifier
-
