@@ -34,6 +34,13 @@ export const initialPerksData: PerksModel = {
     const perk = Object.values(helpers.getState().perks).flatMap((e)=>e).find((p)=>p.label === payload.label);
     if(!perk) return;
 
+    // TODO check logic
+    const myPerk = {
+      cost: 10,
+      label: "My First Perk",
+      owned: 1,
+      costIncrease: 1.1,
+    }
     if(helpers.getStoreState().base.clicks < perk.cost) return;
     helpers.getStoreActions().base.decrease(perk.cost);
 
