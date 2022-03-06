@@ -1,13 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
+import {App} from './App'
 import reportWebVitals from './reportWebVitals'
-import { BaseStore } from './stores/base'
-import { EventsStore } from './stores/events'
-import { PerksStore } from './stores/perks/perks.store'
 import { StoreProvider } from 'easy-peasy'
-import { store } from './stores'
+import { store } from './store'
 
 ReactDOM.render(
   <React.StrictMode>
