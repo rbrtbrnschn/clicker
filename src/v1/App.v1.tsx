@@ -42,7 +42,7 @@ export function AppV1() {
   }, [])
 
   return (
-    <div className='App'>
+    <div className='v1'>
       <ToastContainer
         position='top-right'
         pauseOnHover={true}

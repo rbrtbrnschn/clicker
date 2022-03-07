@@ -21,3 +21,5 @@
 - upgrades disapear on max
 - achievement section ? marks undiscovered achievements 
 - upgrade section ? marks locked upgrades
+
+ gelbe tonne raus!
