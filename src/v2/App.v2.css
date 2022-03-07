@@ -1,0 +1,35 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
+
+.verocity {
+  transition: all .3s ease-in-out;
+}
+.verocity.--inactive{
+  background-color: hsl(0, 0%, 100%);
+}
+.verocity.--low {
+  background-color: hsl(0, 0%, 96%);
+}
+.verocity.--moderate {
+  background-color: hsl(171, 100%, 41%);
+}
+.verocity.--high {
+  background-color: hsl(217, 71%, 53%);
+}
+.verocity.--crazy {
+  background-color: hsl(48, 100%, 67%) 	;
+}
+.verocity.--inactive.button:focus:not(:active), .verocity.--inactive.button.is-focused:not(:active) {
+  box-shadow: 0 0 0 0.125em hsla(0, 0%, 100%, .25);
+}
+.verocity.--low.button:focus:not(:active), .verocity.--low.button.is-focused:not(:active) {
+  box-shadow: 0 0 0 0.125em hsla(0, 0%, 96%, .25);
+}
+.verocity.--moderate.button:focus:not(:active), .verocity.--moderate.button.is-focused:not(:active) {
+  box-shadow: 0 0 0 0.125em hsla(171, 100%, 41%, .25);
+}
+.verocity.--high.button:focus:not(:active), .verocity.--high.button.is-focused:not(:active) {
+  box-shadow: 0 0 0 0.125em hsla(217, 71%, 53%, .25);
+}
+.verocity.--crazy.button:focus:not(:active), .verocity.--crazy.button.is-focused:not(:active) {
+  box-shadow: 0 0 0 0.125em hsla(48, 100%, 67%, .25);
+}
