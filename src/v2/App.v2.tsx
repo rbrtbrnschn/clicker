@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useStoreActions, useStoreState } from '../store'
 import './App.v2.css'
 import { Verocity } from './stores/base/base.types.d'
+import { upgrades } from './stores/upgrade/upgrades'
 
 export const AppV2 = () => {
   const actions = useStoreActions((state) => state.v2)
@@ -10,6 +11,8 @@ export const AppV2 = () => {
   const baseActions = actions.base
   const autoclickerState = state.autoclicker
   const autoclickerActions = actions.autoclicker
+  const upgradeState = state.upgrade
+  const upgradeActions = actions.upgrade
 
   const f = (num: number) => num.toFixed(2)
 
@@ -50,15 +53,17 @@ export const AppV2 = () => {
           : 'crazy'}
       </div>
       <button
-        className={`verocity button is-rounded ${baseState.verocity === Verocity.INACTIVE
-          ? '--inactive'
-          : baseState.verocity === Verocity.LOW
-          ? '--low'
-          : baseState.verocity === Verocity.MODERATE
-          ? '--moderate'
-          : baseState.verocity === Verocity.HIGH
-          ? '--high'
-          : '--crazy'}`}
+        className={`verocity button is-rounded ${
+          baseState.verocity === Verocity.INACTIVE
+            ? '--inactive'
+            : baseState.verocity === Verocity.LOW
+            ? '--low'
+            : baseState.verocity === Verocity.MODERATE
+            ? '--moderate'
+            : baseState.verocity === Verocity.HIGH
+            ? '--high'
+            : '--crazy'
+        }`}
         onClick={() => {
           baseActions.click()
         }}
@@ -110,6 +115,20 @@ export const AppV2 = () => {
             >
               +10 - {f(cost10)}
             </button>
+          </div>
+        )
+      })}
+
+      <hr />
+      <div className='subtitle'>Upgrades</div>
+      {upgradeState.upgrades.map((upgrade, i) => {
+        if(upgrade.isBought) return <></>
+        return (
+          <div>
+            <strong>Name: </strong>{upgrade.label} <span><strong>Cost </strong>${upgrade.cost}</span>{' '}
+            <button className='button is-primary is-rounded' disabled={upgrade.isBought} onClick={() => {
+              upgradeActions.dispatchPurchase(upgrade.label);
+            }}>Buy</button>
           </div>
         )
       })}
