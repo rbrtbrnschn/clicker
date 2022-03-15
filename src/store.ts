@@ -1,6 +1,6 @@
 import { createStore, createTypedHooks, persist, PersistConfig } from 'easy-peasy'
 import { initialStoreV1Data, modelV1, StoreModelV1 } from './v1/stores'
-import { initialStoreV2Data, StoreModelV2 } from './v2/stores'
+import { initialStoreV2Data, modelV2, StoreModelV2 } from './v2/stores'
 
 export interface StoreModel {
   v1: StoreModelV1
